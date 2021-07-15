@@ -32,7 +32,7 @@ const Chart: React.FC<ChartProps> = ({
     <div className={styles.root}>
       {!loading ? (
         <>
-          {dates && numbers && dates.length && numbers.length && (
+          {dates && numbers && dates.length && numbers.length ? (
             <Bar
               data={{
                 labels: dates,
@@ -59,7 +59,7 @@ const Chart: React.FC<ChartProps> = ({
               }}
               type="line"
             />
-          )}
+          ) : <h1>No data for {title}</h1>}
         </>
       ) : (
         <LoadingCountry color="black" />
