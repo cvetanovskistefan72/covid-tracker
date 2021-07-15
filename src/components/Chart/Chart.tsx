@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import Bar from "react-chartjs-2";
 import { useSelector } from "react-redux";
 import {
@@ -6,7 +6,7 @@ import {
   selectLoadingCountry,
 } from "../../store/countries/selectors";
 import LoadingCountry from "../LoadingCountry/LoadingCountry";
-import dateFormat from 'dateformat';
+import dateFormat from "dateformat";
 import styles from "./Chart.module.scss";
 interface ChartProps {
   title: string;
@@ -15,40 +15,54 @@ interface ChartProps {
   chartData: Array<string[]>;
 }
 
-const Chart: React.FC<ChartProps> = ({ title, color, borderColor, chartData }) => {
-  const loading = useSelector(selectLoadingCountry);
+const Chart: React.FC<ChartProps> = ({
+  title,
+  color,
+  borderColor,
+  chartData,
+}) => {
+  const loading = useSelector(selectLoadingCountry)
   const dates = chartData.map((x, i) => {
-    if (i % 9 === 0) return dateFormat(x[0], "longDate");
+    if (i % 2 === 0) return dateFormat(x[0], "longDate").toString();
   });
   const numbers = chartData.map((x, i) => {
-    if (i % 9  === 0) return x[1];
+    if (i % 2 === 0) return x[1];
   });
   return (
     <div className={styles.root}>
-      {loading ? (
-        <LoadingCountry color="black" />
-      ) : (
+      {!loading ? (
         <>
-          {chartData && (
+          {dates && numbers && dates.length && numbers.length && (
             <Bar
               data={{
                 labels: dates,
                 datasets: [
                   {
                     label: title,
-                    backgroundColor: color,
                     borderColor: borderColor,
+                    backgroundColor: borderColor,
                     data: numbers,
+                    barThickness: 5,
+                    fill: true,
                   },
                 ],
               }}
-              width={1000}
               height={300}
-              options={{ maintainAspectRatio: false }}
+              options={{
+                maintainAspectRatio: false,
+                spanGaps: true,
+                elements: {
+                  point: {
+                    radius: 1,
+                  },
+                },
+              }}
               type="line"
             />
           )}
         </>
+      ) : (
+        <LoadingCountry color="black" />
       )}
     </div>
   );

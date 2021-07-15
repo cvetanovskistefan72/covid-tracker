@@ -1,15 +1,21 @@
-@import '../styles/variables.module.scss';
+@import "../styles/variables.module.scss";
 
-.root{
-  height: 100vh;
+.root {
   display: flex;
-  justify-content: space-between;
-  .left{
-    width:960px;
-    height: 100%;
+  justify-content: center;
+  flex-direction: column;
+
+  .left {
   }
-  .right{
-    width:960px;
-    height: 100%;
+  .right {
+    padding: 0rem 5rem 0rem 5rem;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .root {
+    .right {
+      padding: 0rem 0rem 0rem 0rem;
+    }
   }
 }
