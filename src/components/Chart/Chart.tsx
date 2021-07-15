@@ -42,7 +42,7 @@ const Chart: React.FC<ChartProps> = ({ title, color, borderColor, chartData }) =
                   },
                 ],
               }}
-              width={100}
+              width={1000}
               height={300}
               options={{ maintainAspectRatio: false }}
               type="line"
