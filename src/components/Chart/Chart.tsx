@@ -59,7 +59,7 @@ const Chart: React.FC<ChartProps> = ({
               }}
               type="line"
             />
-          ) : <h1>No data for {title}</h1>}
+          ) : <h3>No data for {title}</h3>}
         </>
       ) : (
         <LoadingCountry color="black" />
